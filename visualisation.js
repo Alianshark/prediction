@@ -1,5 +1,5 @@
-Vx = 0;
-Vy = 50;
+let Vx = 0;
+let Vy = 50;
 
 let ship = {
     x: 0,
@@ -32,7 +32,7 @@ while(Vx<=50) {
 }
  */
 
-function isCollision(bullet,ship) {
+function detectCollision(bullet,ship) {
    if (
       bullet.x + bullet.width > ship.x && 
       bullet.x < ship.x + ship.width &&
@@ -48,7 +48,7 @@ function simulate(vx,vy) {
     let timmer = 0;
     bullet.x = 0;
     bullet.y = 0;
-    ship.x = 200;
+    ship.x = 400;
     ship.y = 300;
     const shipV = 20;
     
@@ -58,8 +58,8 @@ function simulate(vx,vy) {
         bullet.x += vx;
         bullet.y += vy;
         ship.x += shipV;
-
-        if (isCollision(bullet,ship)) {
+        const isCollision = detectCollision(bullet,ship)
+        if (isCollision) {
             console.log('est popadanie');
         }
 
@@ -69,20 +69,25 @@ function simulate(vx,vy) {
         bullet.img.style.left = bullet.x + 'px';
 
         timmer += 1;
+        
         const ugeNeDagonit = bullet.y > ship.y + ship.height || bullet.x > ship.x + ship.width;
-        if (ugeNeDagonit) {
+        if (isCollision) {
             console.log('simulation end');
+            console.log('Vx: ',Vx,'Vy: ',Vy)
         } else {
-            setTimeout(time, 1000/10);
-        }
-        
-        
+            if (ugeNeDagonit) {
+                Vx += 10;
+                Vy = Math.sqrt(50*50-Vx*Vx);
+                simulate(Vx,Vy);
+            } else {
+                setTimeout(time, 1000/10);
+            }
+        } 
     }
-    
 }
 
 
-Vx = 47.1;
+Vx = 0;
 Vy = Math.sqrt(50*50-Vx*Vx);
 simulate(Vx,Vy);
 
