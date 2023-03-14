@@ -49,7 +49,7 @@ function simulate(vx,vy) {
     bullet.x = 0;
     bullet.y = 0;
     ship.x = 400;
-    ship.y = 300;
+    ship.y = 0;
     const shipV = 20;
     
    setTimeout(time, 1000/10);
@@ -76,8 +76,11 @@ function simulate(vx,vy) {
             console.log('Vx: ',Vx,'Vy: ',Vy)
         } else {
             if (ugeNeDagonit) {
-                Vx += 10;
+                Vx += 1;
+                
                 Vy = Math.sqrt(50*50-Vx*Vx);
+                console.log('Vx: ', Vx)
+                console.log('Vy: ', Vy)
                 simulate(Vx,Vy);
             } else {
                 setTimeout(time, 1000/10);
