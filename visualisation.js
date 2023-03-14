@@ -1,64 +1,88 @@
 Vx = 0;
 Vy = 50;
+
 let ship = {
     x: 0,
     y: 0,
     width: 300,
     height: 200,
     img: document.querySelector('#ship'),
-    }
-let bulet = {
+}
+
+let bullet = {
     x: 0,
     y: 0,
     width: 20,
     height: 10,
-    img: document.querySelector("#bullet"),
+    img: document.querySelector('#bullet'),
 }
 
-
-
+/*
 
 while(Vx<=50) {
     Vx += 10;
    // Vx^2 + Vy^2 = 50^2;
    // Vy^2 = Vx^2
     Vy = Math.sqrt(50*50-Vx*Vx);
-    if (popadaet(Vx, Vy)) {
+    if (simulate(Vx, Vy)) {
         alert('podhodit!!');
         alert('vx: '+ Vx);
         alert('vy: '+ Vy);
     }
+}
+ */
 
+function isCollision(bullet,ship) {
+   if (
+      bullet.x + bullet.width > ship.x && 
+      bullet.x < ship.x + ship.width &&
+      bullet.y + bullet.height > ship.y && 
+      bullet.y < ship.y + ship.height 
+    ) {
+        return true;
+    }
+   
 }
 
-function isCollision() {
-
-}
-
-function popadaet(vx,vy) {
-    let time = 0;
+function simulate(vx,vy) {
+    let timmer = 0;
     bullet.x = 0;
     bullet.y = 0;
-    ship.x = 20;
-    ship.y = 30;
+    ship.x = 200;
+    ship.y = 300;
     const shipV = 20;
-   
-   setInterval(time, 1000/60);
-   
+    
+   setTimeout(time, 1000/10);
 
    function time () {
         bullet.x += vx;
         bullet.y += vy;
         ship.x += shipV;
-        if (isCollision(bullet.x,bullet.y,ship.x,ship.y)) {
-            return true
+
+        if (isCollision(bullet,ship)) {
+            console.log('est popadanie');
         }
-        time += 1;
-        return false;
+
+        ship.img.style.top = ship.y + 'px';
+        ship.img.style.left = ship.x + 'px';
+        bullet.img.style.top = bullet.y + 'px';
+        bullet.img.style.left = bullet.x + 'px';
+
+        timmer += 1;
+        const ugeNeDagonit = bullet.y > ship.y + ship.height || bullet.x > ship.x + ship.width;
+        if (ugeNeDagonit) {
+            console.log('simulation end');
+        } else {
+            setTimeout(time, 1000/10);
+        }
+        
         
     }
+    
 }
-ship.img.style.top = ship.y + 'px';
-ship.img.style.left = ship.x + 'px';
-bullet.img.style.top = bullet.y + 'px';
-bullet.img. style.top = bullet.x + 'px';
+
+
+Vx = 47.1;
+Vy = Math.sqrt(50*50-Vx*Vx);
+simulate(Vx,Vy);
+

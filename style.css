@@ -1,8 +1,10 @@
 #ship {
-    width: 300;
-    height: 200;
+    width: 300px;
+    height: 200px;
+    position: absolute;
 }
 #bullet {
-    width: 20;
-    height: 10;
+    width: 20px;
+    height: 10px;
+    position: absolute;
 }
