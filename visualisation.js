@@ -1,15 +1,18 @@
-let Vx = 0;
-let Vy = 50;
-
-let ship = {
+// coordinate of a first shot (must be sqrt(VX^2+VY^2)=50);
+let Vx = 0; 
+// coordinate of a first shot (must be sqrt(VX^2+VY^2)=50);
+let Vy = Math.sqrt(50*50-Vx*Vx); 
+//enemy or enemies
+let ship = {  
     x: 0,
     y: 0,
     width: 250,
     height: 150,
     img: document.querySelector('#ship'),
-}
+} 
 
-let bullet = {
+//position and coordinate of of ship and start bullet position
+let bullet = {   
     x: 0,
     y: 0,
     width: 20,
@@ -17,7 +20,7 @@ let bullet = {
     img: document.querySelector('#bullet'),
 }
 
-/*
+/* 
 
 while(Vx<=50) {
     Vx += 10;
@@ -31,7 +34,7 @@ while(Vx<=50) {
     }
 }
  */
-
+//looking for collision, if find return true
 function detectCollision(bullet,ship) {
    if (
       bullet.x + bullet.width > ship.x && 
@@ -44,6 +47,7 @@ function detectCollision(bullet,ship) {
    
 }
 
+//simulation of bullet fly 
 function simulate(vx,vy) {
     let timmer = 0;
     bullet.x = 0;
@@ -51,9 +55,7 @@ function simulate(vx,vy) {
     ship.x = 400;
     ship.y = 0;
     const shipV = 20;
-    
-   setTimeout(time, 1000/10);
-
+    time();
    function time () {
         bullet.x += vx;
         bullet.y += vy;
@@ -83,13 +85,11 @@ function simulate(vx,vy) {
                 console.log('Vy: ', Vy)
                 simulate(Vx,Vy);
             } else {
-                setTimeout(time, 1000/10);
+                time();
             }
         } 
     }
 }
 
-Vx = 0;
-Vy = Math.sqrt(50*50-Vx*Vx);
 simulate(Vx,Vy);
 
