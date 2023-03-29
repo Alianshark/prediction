@@ -1,3 +1,8 @@
+//import { predictVxVy } from "../ghost-of-kyiv/predictiveShot";
+let predictionResult = {
+    Vx: undefined,
+    Vy: undefined,
+}
 // coordinate of a first shot (must be sqrt(VX^2+VY^2)=50);
 let Vx = 0; 
 // coordinate of a first shot (must be sqrt(VX^2+VY^2)=50);
@@ -44,45 +49,44 @@ function detectCollision(bullet,ship) {
     ) {
         return true;
     }
-   
 }
 
 //simulation of bullet fly 
 function simulate(vx,vy) {
     let timmer = 0;
-    bullet.x = 0;
+    bullet.x = 0; //that we get from oure ship(and bullet). It's possition
     bullet.y = 0;
-    ship.x = 400;
-    ship.y = 0;
-    const shipV = 20;
+    ship.x = 600; //that we get from enemy. It's Position of enemy
+    ship.y = 220;
+    const shipV = -20; //that we get from enemy/ It's his speed
     time();
+
    function time () {
         bullet.x += vx;
         bullet.y += vy;
         ship.x += shipV;
-        const isCollision = detectCollision(bullet,ship)
-        if (isCollision) {
-            console.log('est popadanie');
-        }
-
+        const isCollision = detectCollision(bullet,ship);
+    /*
         ship.img.style.top = ship.y + 'px';
         ship.img.style.left = ship.x + 'px';
         bullet.img.style.top = bullet.y + 'px';
         bullet.img.style.left = bullet.x + 'px';
-
+    */
         timmer += 1;
         
         const ugeNeDagonit = bullet.y > ship.y + ship.height || bullet.x > ship.x + ship.width;
         if (isCollision) {
             console.log('simulation end');
-            console.log('Vx: ',Vx,'Vy: ',Vy)
+            console.log('In time Vx: ',Vx,'in time Vy: ',Vy);
+            predictionResult.Vx = Vx ;
+            predictionResult.Vy = Vy ;
+            
+            //console.log(result);
+            //return result;
         } else {
             if (ugeNeDagonit) {
                 Vx += 1;
-                
                 Vy = Math.sqrt(50*50-Vx*Vx);
-                console.log('Vx: ', Vx)
-                console.log('Vy: ', Vy)
                 simulate(Vx,Vy);
             } else {
                 time();
@@ -90,6 +94,18 @@ function simulate(vx,vy) {
         } 
     }
 }
+// prinimat bullet i ship 
+function getPrediction() {
+    //and simulate must get bulet and ship and Vx,Vy
+    predictionResult.Vx = undefined;
+    predictionResult.Vy = undefined;
+    simulate(Vx,Vy);
+    return predictionResult;
+}
+//function log(massage) {
+   // console.log(massage);
+//}
 
-simulate(Vx,Vy);
-
+const res = getPrediction();
+console.log('return Value of get prediction Vx:',res.Vx,'return Value of get prediction Vy:',res.Vy);
+export {getPrediction};
