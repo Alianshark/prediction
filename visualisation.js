@@ -4,8 +4,8 @@ let Vy = 50;
 let ship = {
     x: 0,
     y: 0,
-    width: 300,
-    height: 200,
+    width: 250,
+    height: 150,
     img: document.querySelector('#ship'),
 }
 
@@ -88,7 +88,6 @@ function simulate(vx,vy) {
         } 
     }
 }
-
 
 Vx = 0;
 Vy = Math.sqrt(50*50-Vx*Vx);
