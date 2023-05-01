@@ -25,9 +25,7 @@ let bullet = {
     img: document.querySelector('#bullet'),
 }
 
-/* 
-
-while(Vx<=50) {
+/*while(Vx<=50) {
     Vx += 10;
    // Vx^2 + Vy^2 = 50^2;
    // Vy^2 = Vx^2
@@ -37,8 +35,8 @@ while(Vx<=50) {
         alert('vx: '+ Vx);
         alert('vy: '+ Vy);
     }
-}
- */
+}*/
+ 
 //looking for collision, if find return true
 function detectCollision(bullet,ship) {
    if (
@@ -56,22 +54,22 @@ function simulate(vx,vy) {
     let timmer = 0;
     bullet.x = 0; //that we get from oure ship(and bullet). It's possition
     bullet.y = 0;
-    ship.x = 600; //that we get from enemy. It's Position of enemy
-    ship.y = 220;
-    const shipV = -20; //that we get from enemy/ It's his speed
-    time();
+    ship.x = 780; //that we get from enemy. It's Position of enemy
+    ship.y = 900;
+    const shipV = -2; //that we get from enemy/ It's his speed
+    setTimeout(time,1000/10)
 
    function time () {
         bullet.x += vx;
         bullet.y += vy;
         ship.x += shipV;
         const isCollision = detectCollision(bullet,ship);
-    /*
+    
         ship.img.style.top = ship.y + 'px';
         ship.img.style.left = ship.x + 'px';
         bullet.img.style.top = bullet.y + 'px';
         bullet.img.style.left = bullet.x + 'px';
-    */
+    
         timmer += 1;
         
         const ugeNeDagonit = bullet.y > ship.y + ship.height || bullet.x > ship.x + ship.width;
@@ -89,7 +87,7 @@ function simulate(vx,vy) {
                 Vy = Math.sqrt(50*50-Vx*Vx);
                 simulate(Vx,Vy);
             } else {
-                time();
+            setTimeout(time,1000/10);
             }
         } 
     }
@@ -99,12 +97,11 @@ function getPrediction() {
     //and simulate must get bulet and ship and Vx,Vy
     predictionResult.Vx = undefined;
     predictionResult.Vy = undefined;
+    Vx = 0;
+    Vy = Math.sqrt(50*50-Vx*Vx);
     simulate(Vx,Vy);
     return predictionResult;
 }
-//function log(massage) {
-   // console.log(massage);
-//}
 
 const res = getPrediction();
 console.log('return Value of get prediction Vx:',res.Vx,'return Value of get prediction Vy:',res.Vy);
